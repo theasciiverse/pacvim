@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <vector>
 #include <iostream>
+#include <cstdlib>
 
 #include "globals.h"
 #include "helperFns.h"
@@ -612,7 +613,10 @@ int main(int argc, char** argv)
 	}
 
 	while(LIVES >= 0) {
-		string mapName = MAPS_LOCATION "/map";
+		// Asciiverse: PACVIM_MAPS, set by av's start script, names the
+		// maps folder of a relocatable install
+		const char* mapsDir = getenv("PACVIM_MAPS");
+		string mapName = string(mapsDir && *mapsDir ? mapsDir : MAPS_LOCATION) + "/map";
 		
 		// convert CURRENT_LEVEL to string, and load
 		std::stringstream ss;

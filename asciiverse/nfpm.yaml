@@ -1,0 +1,35 @@
+# System packages (.deb, .rpm, .apk, Arch) for pacvim, built by nfpm from
+# the same static Linux build as the av archive. The release workflow sets
+# VERSION, RELEASE (our packaging release) and ARCH (amd64 or arm64).
+#
+# No .desktop file on purpose: av is the one place titles are started from,
+# so Asciiverse packages never add menu entries.
+name: pacvim
+arch: ${ARCH}
+platform: linux
+version: ${VERSION}
+release: ${RELEASE}
+section: games
+priority: optional
+maintainer: Asciiverse <packages@asciiverse.sh>
+vendor: Asciiverse
+homepage: https://github.com/theasciiverse/pacvim
+license: LGPL-3.0-or-later
+description: |
+  Learn vim motions by playing a maze game.
+  Move the cursor over every letter with vim commands (h j k l, w, b, e,
+  $, 0, gg, G and more) while dodging ghosts. Ten levels.
+  PacVim by Jamal Moon, packaged by Asciiverse.
+contents:
+  - src: pacvim
+    dst: /usr/bin/pacvim
+    file_info: { mode: 0755 }
+  - src: maps/map*.txt
+    dst: /usr/share/pacvim-maps/
+    file_info: { mode: 0644 }
+  - src: COPYING.LESSER
+    dst: /usr/share/doc/pacvim/copyright
+    file_info: { mode: 0644 }
+  - src: README.md
+    dst: /usr/share/doc/pacvim/README.md
+    file_info: { mode: 0644 }

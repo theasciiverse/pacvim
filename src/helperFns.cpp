@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "globals.h"
+#include <iostream>
+#include <unistd.h>
 #include "helperFns.h"
 #include <sstream>
 #include <unistd.h>
@@ -89,11 +91,10 @@ bool writeAt(int x, int y, chtype letter, int color) {
 }
 
 void writeError(std::string msg) {
-	std::ofstream fs;
-	fs.open("errors.log", std::fstream::app);
-	fs << msg;
-	fs << "\n";
-	fs.close();
+	// Asciiverse: to stderr when it is not the terminal (av sends it to
+	// the title's log), instead of errors.log in the current folder
+	if (!isatty(2))
+		std::cerr << msg << "\n";
 }
 
 void printAtBottomChar(char msg) {
