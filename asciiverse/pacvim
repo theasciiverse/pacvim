@@ -1,0 +1,7 @@
+#!/bin/sh
+# Starts PacVim from an av install: points it at the maps next to this
+# script, then runs the real binary in lib/.
+# av links ~/.local/bin/pacvim to this file, so follow that link first.
+self=$(readlink "$0" 2>/dev/null || printf '%s' "$0")
+dir=$(cd "$(dirname "$self")" && pwd)
+PACVIM_MAPS="$dir/maps" exec "$dir/lib/pacvim" "$@"
